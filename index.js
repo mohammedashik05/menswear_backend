@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-const LINK=process.env.MONGO_URI||"mongodb://127.0.0.1:27017/testdb";
+const LINK=process.env.MONGO_URI;
 console.log(LINK);
 
 mongoose.connect(LINK, {
