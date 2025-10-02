@@ -13,8 +13,14 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+<<<<<<< HEAD
 // DB connection
 connectDB();
+=======
+// Connect to MongoDB
+const LINK=process.env.MONGO_URI;
+console.log(LINK);
+>>>>>>> ea23ea4fd9213b7a327d68248e6247df323afaf9
 
 // Routes
 app.use("/api/auth", authRoutes);
