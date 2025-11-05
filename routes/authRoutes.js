@@ -52,18 +52,20 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "24h" }
     );
+  
 
     res.json({
       success: true,
       message: "Login successful!",
       token,
-      user: { id: user._id, username: user.username, email: user.email }
+      user: { id: user._id, username: user.username, email: user.email ,isAdmin: user.isAdmin }
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
 
 module.exports = router;

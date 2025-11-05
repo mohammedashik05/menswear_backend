@@ -5,6 +5,12 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const userDataRoutes = require("./routes/userData");
+const productRoutes = require("./routes/productRoutes");
+const orderplacedRoutes =require("./routes/orderPlacedRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,18 +19,16 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-<<<<<<< HEAD
 // DB connection
 connectDB();
-=======
-// Connect to MongoDB
-const LINK=process.env.MONGO_URI;
-console.log(LINK);
->>>>>>> ea23ea4fd9213b7a327d68248e6247df323afaf9
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/user", userDataRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orderPlaced",orderplacedRoutes);
+app.use("/api/info",userRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // Root test
 app.get("/", (req, res) => {
