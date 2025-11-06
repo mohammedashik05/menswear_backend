@@ -5,7 +5,7 @@ const products = require("./products"); // make sure products.js uses module.exp
 
 dotenv.config();
 
-const LINK = "mongodb://localhost:27017/RoyalFitz";
+const LINK = process.env.MONGO_URI ;
 
 mongoose.connect(LINK)
   .then(async () => {
