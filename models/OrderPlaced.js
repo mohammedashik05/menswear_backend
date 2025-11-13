@@ -2,25 +2,30 @@ const mongoose = require("mongoose");
 
 const orderPlacedSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true },
-    email: {
-      type: String,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
-      match: /^[\w.-]+@[\w.-]+\.\w+$/,
     },
-    address: { type: String, required: true },
-    mobileNo: { type: String, required: true },
+    username: String,
+    email: String,
+    address: String,
+    mobileNo: String,
+    totalAmount: Number,
     cart: [
       {
-        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" }, // reference to Product
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
         name: String,
-        price: Number,
         image: String,
-        quantity: { type: Number, required: true },
+        quantity: Number,
+        price: Number,
       },
     ],
-    totalAmount: { type: Number, required: true }, // optional, for admin dashboard quick view
-    status: { type: String, default: "Pending" }, // Pending, Shipped, Delivered, etc.
+    status: {
+      type: String,
+      enum: ["Pending", "Delivered", "Canceled"],
+      default: "Pending",
+    },
   },
   { timestamps: true }
 );

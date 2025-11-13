@@ -56,14 +56,16 @@ router.post("/orderplaced", authMiddleware, async (req, res) => {
     }));
 
     const newOrder = new OrderPlaced({
+      userId: req.userId, // ✅ link order to logged-in user
       username,
       email,
       address,
       mobileNo,
-      cart: cartWithIds,
+      cart,
       totalAmount,
-      status,
+      status: "Pending", // default status
     });
+
 
     await newOrder.save();
 
@@ -96,6 +98,17 @@ router.put("/update/:id", async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GET /api/orderPlaced/user-orders  (protected route)
+router.get("/user-orders", authMiddleware, async (req, res) => {
+  try {
+    const orders = await OrderPlaced.find({ userId: req.userId }).sort({ createdAt: -1 });
+    console.log(orders);
+    res.json({ success: true, orders });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error fetching orders" });
   }
 });
 
